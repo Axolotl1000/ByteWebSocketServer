@@ -43,7 +43,7 @@ for target in "${targets[@]}"; do
         sha512Value=$(sha512sum "$buildDir/$filename" | awk '{ print $1 }')
         echo "$filename : SHA512::$sha512Value"
 
-        echo "- $filename: \`\`$sha512Value\`\`" >> "$sha512File"
+        echo "- $filename: \`$sha512Value\`" >> "$sha512File"
     else
         echo "❌ 編譯失敗：$buildDir/$filename"
     fi
