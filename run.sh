@@ -1,4 +1,4 @@
-﻿#!/bin/bash
+#!/bin/bash
 
 export GOOS=linux
 export GOARCH=amd64
@@ -23,7 +23,7 @@ echo "📦 安裝 Go 依賴..."
 go mod tidy
 
 echo "🚀 編譯 Go 應用程式..."
-go build -o "$executeable_filename"
+go build -buildvcs=false -o "$executeable_filename"
 
 echo "🏃 運行應用程式..."
 ./"$executeable_filename"

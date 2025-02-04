@@ -35,17 +35,14 @@ for target in "${targets[@]}"; do
 
     filename="app_${GOOS}_${GOARCH}${Ext}"
 
-    # 編譯程式
-    go build -o "$buildDir/$filename"
+    go build -buildvcs=false -o "$buildDir/$filename"
 
     if [ $? -eq 0 ]; then
         echo "✅ 編譯成功：$buildDir/$filename"
 
-        # 計算 SHA512
         sha512Value=$(sha512sum "$buildDir/$filename" | awk '{ print $1 }')
         echo "$filename : SHA512::$sha512Value"
 
-        # 寫入 SHA512.md
         echo "- $filename: \`\`$sha512Value\`\`" >> "$sha512File"
     else
         echo "❌ 編譯失敗：$buildDir/$filename"
