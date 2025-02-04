@@ -1,0 +1,1 @@
+INSERT INTO `public_keys` VALUES ("roomId", "userId", 0x{HEXKEY});

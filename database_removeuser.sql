@@ -1,0 +1,1 @@
+DELETE FROM `public_keys` WHERE `room` = 'roomId' AND `user` = 'userId';
