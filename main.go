@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"net"
 	"net/http"
 	"os"
 	"sync"
@@ -132,11 +133,19 @@ func main() {
 	fmt.Println("成功連線至資料庫")
 
 	fmt.Println("正在啟動伺服器")
-	http.HandleFunc("/ws", handleBinaryConnection)
-	fmt.Printf("Binary WebSocket 伺服器啟動於 :%s\n", port)
-	err = http.ListenAndServe(":"+port, nil)
+
+	addr := "0.0.0.0:" + port
+	listener, err := net.Listen("tcp4", addr)
 	if err != nil {
 		log.Fatal("伺服器啟動失敗:", err)
 		os.Exit(1)
+	}
+
+	http.HandleFunc("/ws", handleBinaryConnection)
+	fmt.Printf("Binary WebSocket 伺服器啟動於 %s\n", addr)
+
+	err = http.Serve(listener, nil)
+	if err != nil {
+		log.Fatal("伺服器運行失敗:", err)
 	}
 }
